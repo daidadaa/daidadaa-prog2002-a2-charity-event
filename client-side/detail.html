@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Charity event details from Kind.">
+  <title>Event Details | Kind</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Kind home">Kind</a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="search.html">Find an event</a>
+    </nav>
+  </header>
+
+  <main class="content-width page-main">
+    <p><a class="back-link" href="search.html">Back to event search</a></p>
+    <p id="event-message" class="status-message" role="status">Loading event details...</p>
+    <article id="event-detail" class="event-detail" hidden></article>
+  </main>
+
+  <div id="register-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-panel">
+      <button id="close-modal" class="icon-button" type="button" aria-label="Close dialog">&times;</button>
+      <p class="eyebrow">Registration</p>
+      <h2 id="modal-title">Coming soon</h2>
+      <p>This feature is currently under construction.</p>
+      <button class="button" type="button" id="modal-confirm">Close</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div><strong>Kind</strong><span>Local events supporting local programs.</span></div>
+    <div><a href="mailto:hello@kind.org">hello@kind.org</a><span>(02) 6600 2000</span></div>
+  </footer>
+  <script src="js/api.js"></script>
+  <script src="js/format.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/event.js"></script>
+</body>
+</html>
