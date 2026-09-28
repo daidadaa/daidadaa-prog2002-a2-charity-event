@@ -1,0 +1,10 @@
+api/node_modules/
+api/.npm-cache/
+api/.env
+.DS_Store
+*.zip
+outputs/
+
+# 备份目录（不要提交）
+*_backup*
+*_git_history*
