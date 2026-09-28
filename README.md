@@ -3,6 +3,50 @@
 The "Kind" charity events website for PROG2002 Assessment 2. It uses Node.js, Express, MySQL,
 HTML, CSS, and vanilla JavaScript (no AngularJS).
 
+## Development iterations
+
+The work was carried out in the following stages. Each stage is a commit in this repository.
+
+### Iteration 1: Project setup
+Set up the Node.js project, the folder structure and the initial files.
+
+### Iteration 2: Database schema
+Designed the MySQL database in `database/schema.sql`: the `organisations`, `categories` and
+`events` tables, the primary keys, the foreign keys that link them, and the indexes used by the
+site queries.
+
+### Iteration 3: Sample data
+Added `database/sample_data.sql` with one organisation, four categories and eight sample events,
+including a free ticket, a past event and a suspended event.
+
+### Iteration 4: Database connection
+Implemented `api/event_db.js`, which connects Node.js to MySQL through a connection pool and reads
+the credentials from `.env`.
+
+### Iteration 5: RESTful API
+Developed the API with Express: `GET /api/events/home`, `GET /api/events` (with optional date,
+location and category filters), `GET /api/events/:id` and `GET /api/categories`. Search parameters
+are validated before the SQL runs, and every value is passed to the database as a bound parameter.
+
+### Iteration 6: Homepage
+Built the homepage, which lists the upcoming events by calling the API with `fetch()`.
+
+### Iteration 7: Search page
+Built the search page with the date, location and category filters, a Clear Filters button and
+on-page validation and error messages.
+
+### Iteration 8: Event details page
+Built the details page, which reads the event id from the URL query string and shows the full
+description, the ticket price, the goal-versus-progress bar and the Register dialog.
+
+### Iteration 9: Testing and improvement
+Tested the pages and the API, tidied the shared client-side helpers into modules and fixed the
+issues found while testing.
+
+### Iteration 10: Documentation and submission
+Added the local event images so the site works offline, and prepared the documentation and the
+demonstration plan.
+
 ## Requirements
 
 - Node.js
