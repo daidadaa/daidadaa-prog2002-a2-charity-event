@@ -57,6 +57,9 @@ function showDetail(event) {
   addText(progressSection, 'p', formatMoney(event.amount_raised) + ' raised of ' + formatMoney(event.fundraising_goal) + ' goal');
   const bar = document.createElement('div');
   bar.className = 'progress-bar';
+  bar.setAttribute('role', 'progressbar');
+  bar.setAttribute('aria-valuemin', '0');
+  bar.setAttribute('aria-valuemax', '100');
   bar.setAttribute('aria-valuenow', String(percent));
   const fill = document.createElement('span');
   fill.style.width = percent + '%';
@@ -90,7 +93,7 @@ async function loadEvent() {
     return;
   }
   try {
-    const res = await fetch('/api/events/' + encodeURIComponent(eventId));
+    const res = await fetch(API_BASE + '/api/events/' + encodeURIComponent(eventId));
     const event = await res.json();
     if (!res.ok) {
       eventMessage.textContent = event.error;
