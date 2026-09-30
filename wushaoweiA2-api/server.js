@@ -13,6 +13,11 @@ app.use(express.json());
 
 // find the client folder
 function findClient() {
+  const parent = path.join(__dirname, '..');
+  // the client files may be in the same folder as the api folder
+  if (fs.existsSync(path.join(parent, 'index.html')) && fs.existsSync(path.join(parent, 'js', 'search.js'))) {
+    return parent;
+  }
   const names = ['wushaoweiA2-clientside', 'client', 'charity-events-clientside'];
   for (const name of names) {
     const folder = path.join(__dirname, '..', name);
