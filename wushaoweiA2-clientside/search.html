@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search Kind charity events.">
+  <title>Find an Event | Kind</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">Kind</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a class="active" href="search.html">Find an event</a>
+    </nav>
+  </header>
+
+  <main class="content-width page-main">
+    <div class="page-title">
+      <p class="eyebrow">Event search</p>
+      <h1>Search charity events</h1>
+      <p>Search active charity events by date, location or category.</p>
+    </div>
+
+    <form id="search-form" class="search-form" novalidate>
+      <div class="form-field">
+        <label for="date">Date</label>
+        <select id="date" name="date">
+          <option value="">Any date</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="location">Location</label>
+        <input id="location" name="location" type="text" maxlength="160" placeholder="e.g. Lismore">
+      </div>
+      <div class="form-field">
+        <label for="category">Event category</label>
+        <select id="category" name="category">
+          <option value="">All categories</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="button" type="submit">Search</button>
+        <button class="button button-secondary" type="button" id="clear-filters">Clear filters</button>
+      </div>
+    </form>
+
+    <p id="search-message" class="status-message" role="status" aria-live="polite">Choose filters and search, or search all active events.</p>
+    <section>
+      <div class="section-heading compact"><h2 id="results-title">Results</h2></div>
+      <div id="search-results" class="event-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><strong>Kind</strong><span>Local events supporting local programs.</span></div>
+    <div><a href="mailto:hello@kind.org">hello@kind.org</a><span>(02) 6600 2000</span></div>
+  </footer>
+  <script src="js/common.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>
