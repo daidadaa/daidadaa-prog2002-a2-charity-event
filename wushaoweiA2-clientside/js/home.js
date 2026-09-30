@@ -58,8 +58,14 @@ function showEvents(events) {
 // Load the home events
 async function loadHomeEvents() {
   try {
-    const res = await fetch('/api/events/home');
+    const res = await fetch(API_BASE + '/api/events/home');
     const events = await res.json();
+    if (!res.ok) {
+      homeMessage.hidden = false;
+      homeMessage.textContent = events.error;
+      homeMessage.classList.add('error');
+      return;
+    }
     if (events.length === 0) {
       homeMessage.textContent = 'There are no upcoming events at the moment. Please check back soon.';
       return;
@@ -67,6 +73,8 @@ async function loadHomeEvents() {
     homeMessage.hidden = true;
     showEvents(events);
   } catch (e) {
+    // if the request fails the loading message must not stay hidden
+    homeMessage.hidden = false;
     homeMessage.textContent = 'Unable to load the events. Please try again later.';
     homeMessage.classList.add('error');
   }
