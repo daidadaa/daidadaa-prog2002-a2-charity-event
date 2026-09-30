@@ -11,26 +11,29 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// the client folder always has these two files, so use them to check a folder
+function hasClientFiles(folder) {
+  return fs.existsSync(path.join(folder, 'index.html'))
+    && fs.existsSync(path.join(folder, 'js', 'search.js'));
+}
+
+// the client folder may be inside a folder instead of next to it,
+// for example when the two zip files are unpacked one inside the other
+function lookInside(folder) {
+  for (const entry of fs.readdirSync(folder, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name === 'node_modules' || entry.name === '.git') continue;
+    const sub = path.join(folder, entry.name);
+    if (hasClientFiles(sub)) return sub;
+  }
+  return null;
+}
+
 // find the client folder
 function findClient() {
   const parent = path.join(__dirname, '..');
-  // the client files may be in the same folder as the api folder
-  if (fs.existsSync(path.join(parent, 'index.html')) && fs.existsSync(path.join(parent, 'js', 'search.js'))) {
-    return parent;
-  }
-  const names = ['wushaoweiA2-clientside', 'client', 'charity-events-clientside'];
-  for (const name of names) {
-    const folder = path.join(__dirname, '..', name);
-    if (fs.existsSync(path.join(folder, 'index.html'))) return folder;
-  }
-  for (const entry of fs.readdirSync(path.join(__dirname, '..'), { withFileTypes: true })) {
-    const folder = path.join(__dirname, '..', entry.name);
-    if (entry.isDirectory() && fs.existsSync(path.join(folder, 'index.html'))
-      && fs.existsSync(path.join(folder, 'js', 'search.js'))) {
-      return folder;
-    }
-  }
-  return null;
+  if (hasClientFiles(__dirname)) return __dirname;
+  if (hasClientFiles(parent)) return parent;
+  return lookInside(__dirname) || lookInside(parent);
 }
 
 const clientFolder = findClient();
@@ -153,7 +156,13 @@ app.get('/api/events/:id', async (req, res) => {
 app.use('/api', (req, res) => res.status(404).json({ error: 'API endpoint not found.' }));
 
 // any other url goes back to the home page
-app.use((req, res) => res.sendFile(path.join(clientFolder || path.join(__dirname, '..', 'wushaoweiA2-clientside'), 'index.html')));
+app.use((req, res) => {
+  if (clientFolder) {
+    res.sendFile(path.join(clientFolder, 'index.html'));
+  } else {
+    res.status(404).send('The client folder was not found. Put the clientside folder next to the api folder.');
+  }
+});
 
 app.listen(port, () => {
   console.log('server is running at http://localhost:' + port);
