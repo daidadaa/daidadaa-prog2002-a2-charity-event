@@ -66,7 +66,7 @@ function checkDate(dateValue) {
 // Load the categories
 async function loadCategories() {
   try {
-    const res = await fetch('/api/categories');
+    const res = await fetch(API_BASE + '/api/categories');
     const categories = await res.json();
     for (const category of categories) {
       const option = document.createElement('option');
@@ -83,7 +83,7 @@ async function loadCategories() {
 // Load the dates
 async function loadDates() {
   try {
-    const res = await fetch('/api/events');
+    const res = await fetch(API_BASE + '/api/events');
     const events = await res.json();
     const dateKeys = [];
     for (const event of events) {
@@ -118,7 +118,7 @@ async function searchEvents() {
   searchMessage.textContent = 'Searching for events...';
   showEvents([]);
   try {
-    const res = await fetch('/api/events' + query);
+    const res = await fetch(API_BASE + '/api/events' + query);
     const events = await res.json();
     if (!res.ok) {
       searchMessage.textContent = events.error;
